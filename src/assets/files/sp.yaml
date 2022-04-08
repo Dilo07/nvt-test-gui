@@ -1,0 +1,123 @@
+openapi: 3.0.0
+info:
+  description: Interface between the Central Platfor and Service Providcer
+  version: 1.0.0
+  title: sp 
+servers:
+- url: http://localhost:9094/api/
+
+tags:
+- name: update
+  description: Update operations
+paths:
+  /serviceprovider/whitelist/full:
+    post:
+      tags:
+        - Metodi
+      summary:  Riceve la whiteList Full.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/WhiteListMessage'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: string
+        '400':
+          description: "Bad Request"
+          content:
+            application/json:
+              schema:
+                type: string
+        '500':
+          description: "Invalid ACK response"
+          content:
+            text/plain:
+              schema:
+                  type: string  
+  /serviceprovider/whitelist/delta:
+    post:
+      tags:
+        - Metodi
+      summary: Riceve la whiteList Delta
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/WhiteListMessage'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: string
+        '400':
+          description: "Bad Request"
+          content:
+            application/json:
+              schema:
+                type: string
+        '500':
+          description: "Invalid ACK response"
+          content:
+            text/plain:
+              schema:
+                  type: string
+         
+###########################
+#                         #
+#     DATA MODEL          #
+#                         #
+###########################             
+components:
+  schemas:
+    WhiteListMessage:
+      type: object
+      required:
+          - header
+          - content
+          - control
+      properties:
+        header: 
+          $ref: '#/components/schemas/Header'
+        content:
+          type: string
+        control:
+          $ref: '#/components/schemas/Footer'
+    
+    Footer:
+      type: object
+      required:
+          - totalItem
+      properties:
+        totalItem: 
+          type: number
+    
+    Header:
+     type: object
+     required:
+          - createdAt
+          - pageNumber
+          - totalPage
+          - pageSize
+          - transmissionIdentifier
+     properties:
+            createdAt: 
+              type: string
+              format: date-time
+            pageNumber:
+              type: number
+            totalPage:
+              type: number
+            pageSize:
+              type: number
+            transmissionIdentifier:
+              type: string
+              format: uuid

@@ -1,5 +1,8 @@
 {
   "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
+  "cli": {
+    "analytics": "b8410776-919c-4475-8410-d307a300ea71"
+  },
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
@@ -27,9 +30,13 @@
               "src/assets"
             ],
             "styles": [
+              "node_modules/swagger-editor-dist/swagger-editor.css",
               "src/styles.css"
             ],
-            "scripts": []
+            "scripts": [
+              "node_modules/swagger-editor-dist/swagger-editor-bundle.js",
+              "node_modules/swagger-editor-dist/swagger-editor-standalone-preset.js"
+            ]
           },
           "configurations": {
             "production": {
@@ -94,9 +101,13 @@
               "src/assets"
             ],
             "styles": [
+              "node_modules/swagger-editor-dist/swagger-editor.css",
               "src/styles.css"
             ],
-            "scripts": []
+            "scripts": [
+              "node_modules/swagger-editor-dist/swagger-editor-bundle.js",
+              "node_modules/swagger-editor-dist/swagger-editor-standalone-preset.js"
+            ]
           }
         }
       }
