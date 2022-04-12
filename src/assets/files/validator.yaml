@@ -4,7 +4,7 @@ info:
   version: 1.0.0
   title: vt 
 servers:
-- url: http://localhost:9094/api/
+- url: http://localhost:9095/api/
 
 tags:
 - name: update
