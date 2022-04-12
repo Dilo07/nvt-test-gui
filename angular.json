@@ -30,6 +30,7 @@
               "src/assets"
             ],
             "styles": [
+              "./node_modules/@angular/material/prebuilt-themes/indigo-pink.css",
               "node_modules/swagger-editor-dist/swagger-editor.css",
               "src/styles.css"
             ],
@@ -101,6 +102,7 @@
               "src/assets"
             ],
             "styles": [
+              "./node_modules/@angular/material/prebuilt-themes/indigo-pink.css",
               "node_modules/swagger-editor-dist/swagger-editor.css",
               "src/styles.css"
             ],

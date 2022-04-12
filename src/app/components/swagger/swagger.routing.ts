@@ -3,7 +3,9 @@ import { RouterModule, Routes } from '@angular/router';
 import { SwaggerComponent } from './swagger.component';
 
 const routes: Routes = [
-  { path: '', component: SwaggerComponent },
+  { path: '', redirectTo: 'validator', pathMatch: 'full' },
+  { path: 'validator', component: SwaggerComponent },
+  { path: 'service-provider', component: SwaggerComponent },
 ];
 
 @NgModule({
