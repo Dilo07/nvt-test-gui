@@ -3,24 +3,24 @@ import { NgModule } from '@angular/core';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MaterialModule } from 'src/app/shared/material/material-module';
-import { UtilitiesComponent } from './utilities.component';
-import { UtilitiesRoutingModule } from './utilities.routing';
-import { BrowserAnimationsModule, NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { BrowserModule } from '@angular/platform-browser';
-
-
+import { DashboardComponent } from './dashboard.component';
+import { DashboardRoutingModule } from './dashboard.routing';
+import { SwaggerEditComponent } from './swagger/swagger.component';
+import { UtilitiesComponent } from './utilities/utilities.component';
 
 @NgModule({
   declarations: [
+    DashboardComponent,
+    SwaggerEditComponent,
     UtilitiesComponent
   ],
   imports: [
     CommonModule,
-    UtilitiesRoutingModule,
+    DashboardRoutingModule,
     FormsModule,
     ReactiveFormsModule,
     MaterialModule,
     FlexLayoutModule
   ]
 })
-export class UtilitiesModule { }
+export class DashboardModule { }

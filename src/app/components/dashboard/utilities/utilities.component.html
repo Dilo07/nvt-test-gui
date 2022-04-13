@@ -1,0 +1,28 @@
+<mat-accordion>
+    <mat-expansion-panel [expanded]="panelOpenState">
+        <mat-expansion-panel-header [collapsedHeight]="'50px'" [expandedHeight]="'50px'">
+            <mat-panel-description>
+                Conversioni
+            </mat-panel-description>
+        </mat-expansion-panel-header>
+        <div fxLayout="row" fxLayoutAlign="center" fxLayoutGap="20px">
+            <mat-card fxFlex="50">
+                <mat-card-title> Decodifica data</mat-card-title>
+                <mat-card-content>
+                    <mat-form-field style="font-size: smaller;" appearance="fill">
+                        <mat-label>Seleziona una data</mat-label>
+                        <input matInput [ngxMatDatetimePicker]="picker" (focus)="picker.open()"
+                            autocomplete="off" [(ngModel)]="CtrlDateSelection" readonly>
+                        <mat-datepicker-toggle matSuffix [for]="$any(picker)">
+                        </mat-datepicker-toggle>
+                        <ngx-mat-datetime-picker #picker></ngx-mat-datetime-picker>
+                    </mat-form-field>
+                </mat-card-content>
+            </mat-card>
+            <mat-card fxFlex="50">
+                <mat-card-title> Decodifica targhe</mat-card-title>
+                <mat-card-content>targhe</mat-card-content>
+            </mat-card>
+        </div>
+    </mat-expansion-panel>
+</mat-accordion>

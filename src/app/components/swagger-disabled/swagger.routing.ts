@@ -1,13 +1,14 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { UtilitiesComponent } from './utilities.component';
+import { SwaggerComponent } from './swagger.component';
 
 const routes: Routes = [
-  { path: '', component: UtilitiesComponent}
+  { path: '', component: SwaggerComponent },
+  /* { path: 'service-provider', component: SwaggerComponent }, */
 ];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule]
 })
-export class UtilitiesRoutingModule { }
+export class SwaggerRoutingModule { }

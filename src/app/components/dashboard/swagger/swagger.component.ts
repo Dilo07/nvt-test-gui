@@ -7,24 +7,22 @@ declare const SwaggerEditorStandalonePreset: any;
 @Component({
   selector: 'app-swagger',
   templateUrl: './swagger.component.html',
-  styleUrls: ['./swagger.component.css']
+  styles: [``]
 })
-export class SwaggerComponent implements OnInit {
-
+export class SwaggerEditComponent implements OnInit {
+  public editor: any;
   constructor(
     private router: Router
-  ) { }
+  ) {  }
 
   ngOnInit(): void {
     let pageUrl = this.router.url;
-    const editor = SwaggerEditorBundle({
+    this.editor = SwaggerEditorBundle({
       dom_id: '#swagger-editor',
       layout: 'StandaloneLayout',
       presets: [SwaggerEditorStandalonePreset],
-      /* url: pageUrl === '/validator' ? 'assets/files/validator.yaml' : 'assets/files/sp.yaml' */
-      url: 'assets/files/validator.yaml'
+      url: pageUrl === '/validator' ? 'assets/files/validator.yaml' : 'assets/files/sp.yaml'
     });
-    /* console.log(editor) */
   }
 
 }
