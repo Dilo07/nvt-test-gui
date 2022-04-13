@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
 declare const SwaggerEditorBundle: any;
@@ -21,8 +21,10 @@ export class SwaggerComponent implements OnInit {
       dom_id: '#swagger-editor',
       layout: 'StandaloneLayout',
       presets: [SwaggerEditorStandalonePreset],
-      url: pageUrl === '/validator' ? 'assets/files/validator.yaml' : 'assets/files/sp.yaml'
+      /* url: pageUrl === '/validator' ? 'assets/files/validator.yaml' : 'assets/files/sp.yaml' */
+      url: 'assets/files/validator.yaml'
     });
+    /* console.log(editor) */
   }
 
 }

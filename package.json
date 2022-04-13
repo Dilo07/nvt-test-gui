@@ -4,17 +4,19 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
-    "build": "ng build",
+    "build": "npm install && ng build --configuration production --source-map --base-href /nvt-test-gui/",
     "watch": "ng build --watch --configuration development",
     "test": "ng test"
   },
   "private": true,
   "dependencies": {
+    "@angular-material-components/datetime-picker": "^7.0.1",
     "@angular/animations": "~13.3.0",
     "@angular/cdk": "^13.3.2",
     "@angular/common": "~13.3.0",
     "@angular/compiler": "~13.3.0",
     "@angular/core": "~13.3.0",
+    "@angular/flex-layout": "^13.0.0-beta.38",
     "@angular/forms": "~13.3.0",
     "@angular/material": "^13.3.2",
     "@angular/platform-browser": "~13.3.0",

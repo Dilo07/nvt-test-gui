@@ -5,6 +5,10 @@ const routes: Routes = [
   {
     path: '',
     loadChildren: () => import('./components/swagger/swagger.module').then(m => m.SwaggerModule),
+  },
+  {
+    path: 'utilities',
+    loadChildren: () => import('./components/utilities/utilities.module').then(m => m.UtilitiesModule)
   }
 ];
 

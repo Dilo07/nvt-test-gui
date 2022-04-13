@@ -5,6 +5,7 @@ info:
   title: vt 
 servers:
 - url: http://localhost:9095/api/
+- url: http://test-nvt-validator-service-rest.eu-south-1.elasticbeanstalk.com/validator/api/
 
 tags:
 - name: update

@@ -5,6 +5,7 @@ info:
   title: sp 
 servers:
 - url: http://localhost:9094/api/v1
+- url: https://test-nvt-serviceprovider-service-rest.eu-south-1.elasticbeanstalk.com/serviceprovider/api-docs
 
 tags:
 - name: update

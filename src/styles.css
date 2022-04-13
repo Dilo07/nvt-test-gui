@@ -4,13 +4,13 @@
     box-sizing: border-box;
 }
 
-body {
+/* body {
     font-family: Roboto, sans-serif;
     font-size: 9px;
     line-height: 1.42857143;
     color: #444;
-    margin: 0px;
-}
+    margin: 10px;
+} */
 
 #swagger-editor {
     font-size: 1.3em;
@@ -29,8 +29,28 @@ body {
     border: none;
 }
 
+.Resizer {
+    display: none;
+}
+
+.topbar {
+    display: none;
+}
+
+.Pane1 {
+    display: none;
+}
+
 .Pane2 {
     overflow: auto;
+    width: 100% !important;
 }
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+html, body {
+    height: 100%;
+}
+
+body {
+    margin: 10px;
+    font-family: Roboto, "Helvetica Neue", sans-serif;
+}
