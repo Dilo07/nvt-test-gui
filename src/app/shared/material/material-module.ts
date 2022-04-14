@@ -6,6 +6,7 @@
  * found in the LICENSE file at https://angular.io/license
  */
 
+import { NgxMatDateAdapter, NgxMatDatetimePickerModule, NgxMatNativeDateModule, NgxMatTimepickerModule } from '@angular-material-components/datetime-picker';
 import { A11yModule } from '@angular/cdk/a11y';
 import { CdkAccordionModule } from '@angular/cdk/accordion';
 import { BidiModule } from '@angular/cdk/bidi';
@@ -47,7 +48,6 @@ import { MatTableModule } from '@angular/material/table';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatTooltipModule } from '@angular/material/tooltip';
-import { NgxMatDatetimePickerModule, NgxMatNativeDateModule, NgxMatTimepickerModule } from '@angular-material-components/datetime-picker';
 /**
  * NgModule that includes all Material modules that are required to app.
  */
@@ -100,6 +100,10 @@ import { NgxMatDatetimePickerModule, NgxMatNativeDateModule, NgxMatTimepickerMod
     ]
 })
 
-export class MaterialModule {}
+export class MaterialModule {
+     constructor(private dateAdapter: NgxMatDateAdapter<Date>) {
+         this.dateAdapter.setLocale('it');
+     }
+}
 
 

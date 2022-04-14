@@ -2,8 +2,9 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
 const routes: Routes = [
+  {path: '', redirectTo: 'swagger', pathMatch: 'full' },
   {
-    path: '',
+    path: 'swagger',
     loadChildren: () => import('./components/dashboard/dashboard.module').then(m => m.DashboardModule)
   }
  /*  {

@@ -12,7 +12,7 @@
                     <mat-form-field style="font-size: smaller;" appearance="fill">
                         <mat-label>Seleziona una data</mat-label>
                         <input matInput [ngxMatDatetimePicker]="picker" (focus)="picker.open()"
-                            autocomplete="off" [(ngModel)]="CtrlDateSelection" readonly>
+                            (dateChange)="changeDate($event)" autocomplete="off" readonly>
                         <mat-datepicker-toggle matSuffix [for]="$any(picker)">
                         </mat-datepicker-toggle>
                         <ngx-mat-datetime-picker #picker></ngx-mat-datetime-picker>
