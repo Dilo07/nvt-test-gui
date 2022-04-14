@@ -8,18 +8,14 @@ const moment = _moment;
   templateUrl: './utilities.component.html',
   styles: [``]
 })
-export class UtilitiesComponent implements OnInit {
-  public datetransform: string | undefined;
+export class UtilitiesComponent {
+  public dateTransform!: string;
   public panelOpenState = false;
 
   constructor() { }
 
-  ngOnInit(): void {
-  }
-
   changeDate(evt: MatDatetimePickerInputEvent<any>): void{
     const timeZone = Math.abs(evt.value.getTimezoneOffset());
-    console.log(moment(moment(evt.value).utc()).add(timeZone, 'minutes').format());
-    this.datetransform = moment(moment(evt.value).utc()).add(timeZone, 'minutes').format();
+    this.dateTransform = moment(moment(evt.value).utc()).add(timeZone, 'minutes').format();
   }
 }
