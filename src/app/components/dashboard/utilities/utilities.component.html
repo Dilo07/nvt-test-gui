@@ -1,15 +1,15 @@
 <mat-accordion>
-    <mat-expansion-panel [expanded]="panelOpenState">
+    <mat-expansion-panel [expanded]="panelOpenState" style="background-color: #548039;">
         <mat-expansion-panel-header [collapsedHeight]="'50px'" [expandedHeight]="'50px'">
-            <mat-panel-description>
+            <mat-panel-description style="color: white;">
                 Conversioni
             </mat-panel-description>
         </mat-expansion-panel-header>
-        <div fxLayout="row" fxLayoutAlign="center" fxLayoutGap="20px">
-            <mat-card fxFlex="50">
+        <div fxLayout="row" fxLayoutGap="20px">
+            <mat-card fxFlex="20">
                 <mat-card-title> Decodifica data</mat-card-title>
                 <mat-card-content>
-                    <mat-form-field style="font-size: smaller;" appearance="fill">
+                    <mat-form-field appearance="fill">
                         <mat-label>Seleziona una data</mat-label>
                         <input matInput [ngxMatDatetimePicker]="picker" (focus)="picker.open()"
                             (dateChange)="changeDate($event)" autocomplete="off" readonly>
@@ -25,9 +25,58 @@
                     </button>
                 </p>
             </mat-card>
-            <mat-card fxFlex="50">
-                <mat-card-title> Decodifica targhe</mat-card-title>
-                <mat-card-content>targhe</mat-card-content>
+            <mat-card fxFlex="80" *ngIf="!validator">
+                <mat-card-title> Genera file XML</mat-card-title>
+                <mat-card-content fxLayout="column" fxLayoutGap="20px">
+                    <form [formGroup]="formPlateGroup" fxLayout="row" fxLayoutGap="20px">
+                        <mat-form-field appearance="fill">
+                            <mat-label>Provider Identifier</mat-label>
+                            <input type="number" matInput autocomplete="off" formControlName="ctrlProvId" required>
+                            <mat-error>Inserisci un provider identifier corretto</mat-error>
+                        </mat-form-field>
+                        <mat-form-field appearance="fill">
+                            <mat-label>Coutry code</mat-label>
+                            <input matInput autocomplete="off" formControlName="ctrlCountryCode" minlength="2" maxlength="2" required>
+                            <mat-error>Inserisci un coutry code corretto</mat-error>
+                        </mat-form-field>
+                    </form>
+                    <span><button mat-raised-button color="primary" (click)="addRow()" class="demo-button">
+                            Aggiungi riga
+                        </button></span>
+                    <table mat-table [dataSource]="dataSource" class="mat-elevation-z8 demo-table">
+
+                        <ng-container matColumnDef="nation">
+                            <th mat-header-cell *matHeaderCellDef>Nazione</th>
+                            <td mat-cell *matCellDef="let element">
+                                <mat-form-field>
+                                    <mat-label>Inserisci una nazione</mat-label>
+                                    <input matInput autocomplete="off" [value]="element.nation"
+                                        [(ngModel)]="element.nation" required>
+                                    <mat-error>Inserisci una nazione corretta</mat-error>
+                                </mat-form-field>
+                            </td>
+                        </ng-container>
+
+                        <ng-container matColumnDef="plate">
+                            <th mat-header-cell *matHeaderCellDef>Targa</th>
+                            <td mat-cell *matCellDef="let element">
+                                <mat-form-field>
+                                    <mat-label>Inserisci una targa</mat-label>
+                                    <input matInput autocomplete="off" [value]="element.plate"
+                                        [(ngModel)]="element.plate" required>
+                                    <mat-error>Inserisci una targa corretta</mat-error>
+                                </mat-form-field>
+                            </td>
+                        </ng-container>
+
+                        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                    </table>
+                    <span><button mat-raised-button color="primary" (click)="generateXML()" class="demo-button">
+                        Genera XML
+                    </button></span>
+                </mat-card-content>
+                <!-- <textarea cols="30" rows="4"></textarea> -->
             </mat-card>
         </div>
     </mat-expansion-panel>

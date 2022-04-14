@@ -11,12 +11,14 @@ declare const SwaggerEditorStandalonePreset: any;
 })
 export class SwaggerEditComponent implements OnInit {
   public editor: any;
+  public isValidator!: boolean;
   constructor(
     private router: Router
-  ) {  }
+  ) { }
 
   ngOnInit(): void {
     let pageUrl = this.router.url;
+    this.isValidator = pageUrl === '/swagger/validator';
     this.editor = SwaggerEditorBundle({
       dom_id: '#swagger-editor',
       layout: 'StandaloneLayout',
