@@ -37,7 +37,8 @@
                         <mat-form-field appearance="fill">
                             <mat-label>Coutry code</mat-label>
                             <input matInput autocomplete="off" formControlName="ctrlCountryCode" minlength="2"
-                                maxlength="2" required>
+                                maxlength="2" required #countryCode
+                                (input)="formGroup.patchValue({ctrlCountryCode: countryCode.value.toUpperCase()})">
                             <mat-error>Inserisci un coutry code corretto</mat-error>
                         </mat-form-field>
                     </form>
@@ -59,7 +60,8 @@
                                 <mat-form-field>
                                     <mat-label>Inserisci una nazione</mat-label>
                                     <input matInput autocomplete="off" [value]="element.nation"
-                                        [(ngModel)]="element.nation" required>
+                                        [(ngModel)]="element.nation" oninput="this.value = this.value.toUpperCase()"
+                                        required>
                                     <mat-error>Inserisci una nazione corretta</mat-error>
                                 </mat-form-field>
                             </td>
@@ -71,7 +73,8 @@
                                 <mat-form-field>
                                     <mat-label>Inserisci una targa</mat-label>
                                     <input matInput autocomplete="off" [value]="element.plate"
-                                        [(ngModel)]="element.plate" required>
+                                        [(ngModel)]="element.plate" oninput="this.value = this.value.toUpperCase()"
+                                        required>
                                     <mat-error>Inserisci una targa corretta</mat-error>
                                 </mat-form-field>
                             </td>
@@ -89,15 +92,17 @@
                         <ng-container matColumnDef="delete">
                             <th mat-header-cell *matHeaderCellDef></th>
                             <td mat-cell *matCellDef="let element">
-                                <button mat-icon-button (click)="deleteRow(element.id)"><mat-icon color="warn">delete</mat-icon></button>
+                                <button mat-icon-button (click)="deleteRow(element.id)">
+                                    <mat-icon color="warn">delete</mat-icon>
+                                </button>
                             </td>
                         </ng-container>
 
                         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
                         <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
                     </table>
-                    <span><button mat-raised-button color="primary"
-                            [disabled]="formGroup.invalid" (click)="generateXML()">
+                    <span><button mat-raised-button color="primary" [disabled]="formGroup.invalid"
+                            (click)="generateXML()">
                             Genera XML
                         </button></span>
                 </mat-card-content>

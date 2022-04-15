@@ -98,8 +98,9 @@ export class xml {
     }
 
     public static encodeCountry(country: string): string {
-        if (this.countryCodeAlphabet.size == 0)
+        if (this.countryCodeAlphabet.size === 0){
             this.initAlphabet();
+        }
         if (!country || country.length != 2) {
             // TODO  FAIL
         }
