@@ -54,7 +54,7 @@ export class UtilitiesComponent implements OnInit {
     if (numRows && numRows > 0) {
       let row: TableSP[] = [];
       for (let i = 0; i < numRows; i++) {
-        row.push({ id: i + 1, plate: functions.generateRandomPlate(), nation: 'IT', selectAdd: true });
+        row.push({ id: i + 1, plate: '#' + functions.generateRandomPlate(), nation: 'IT', selectAdd: true });
       }
       this.dataToDisplay = row;
       this.dataSource.data = this.dataToDisplay;
