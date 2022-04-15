@@ -2,6 +2,7 @@ import { TableSP } from "./interface";
 
 export class xml {
     private static countryCodeAlphabet: Map<string, number> = this.initAlphabet();
+    private static possible : string = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 
     public static generateXml(spID: number, cCodeProvider: string, plates: TableSP[]): string {
         let provider = this.generateProvider();
@@ -24,7 +25,7 @@ export class xml {
             </infoExchangeContent>
         </InfoExchange>`
     }
-    
+
     private static generateProvider(): string {
         return `
         <apci>
@@ -140,5 +141,17 @@ export class xml {
         countryCodeAlphabet.set('Y', 21);
         countryCodeAlphabet.set('Z', 17);
         return countryCodeAlphabet;
+    }
+
+    public static generateRandomPlate(): string {
+        let plate: string = "";
+        for (var i = 0; i < 7; i++) {
+            if (i < 2 || i > 4) {
+                plate += this.possible.charAt(Math.floor(Math.random() * this.possible.length));
+            } else {
+                plate += Math.floor(Math.random() * 10);
+            }
+        }
+        return plate;
     }
 }
