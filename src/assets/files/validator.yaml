@@ -1,0 +1,173 @@
+openapi: 3.0.0
+info:
+  description: Interface between the Central Platfor and Lane Manager
+  version: 1.0.0
+  title: vt 
+servers:
+- url: http://localhost:9095/api/
+- url: http://test-nvt-validator-service-rest.eu-south-1.elasticbeanstalk.com/validator/api/
+
+tags:
+- name: update
+  description: Update operations
+paths:
+  /validator/searchAccountByPlate:
+    get:
+      tags:
+        - Metodi
+      summary:  Validate plate.
+      parameters:
+        - in: query
+          name: plate
+          required: true
+          schema:
+            type: string
+          description: vehicle plate
+        - in: query
+          name: country
+          required: true
+          schema:
+            type: string
+            pattern: ^[A-Z]{3}$
+          description: country associated to vehicle plate (ISO-alfa-3)
+        - in: query
+          name: dateTransit
+          required: true
+          schema:
+            type: string
+            format: date-time
+        - in: query
+          name: sourcetype
+          required: true
+          schema:
+             $ref: "#/components/schemas/SourceTypeEnum"
+        - in: query
+          name: laneType
+          required: true
+          schema:
+             $ref: "#/components/schemas/LaneTypeEnum"  
+        - in: query
+          name: rrssspp
+          required: true
+          schema:
+            type: string
+            pattern: ^[0-9]{7}$   
+          description: rrssspp with pattern ^[0-9]{7}$           
+        - in: query
+          name: directionType
+          required: true
+          schema:
+             $ref: "#/components/schemas/DirectionTypeEnum"   
+        - in: query
+          name: systemType
+          required: true
+          schema:
+             $ref: "#/components/schemas/SystemTypeEnum"             
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ValidatorResponse"
+        '400':
+          description: "Invalid response"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse" 
+ 
+         
+###########################
+#                         #
+#     DATA MODEL          #
+#                         #
+###########################             
+components:
+  schemas:
+    SourceTypeEnum:
+      type: string
+      enum:
+        - SM
+        - LNE
+    LaneTypeEnum:
+      type: string
+      enum:
+        - J
+        - G
+        - B
+        - Q
+        - K
+        - E
+        - W
+        - U
+        - T
+        - O
+        - Z
+        - X
+        - Y
+    AccountTypeEnum:
+      type: string
+      enum:
+        - VT
+    SystemTypeEnum:
+      type: number
+      enum:
+        - 1
+        - 2  
+    DirectionTypeEnum:
+      type: number
+      enum:
+        - 5
+        - 6
+        - 7
+        - 8
+    Provider:
+      type: object
+      required:
+          - id
+          - startDate
+      properties:
+            id:
+              type: number
+            name:
+              type: string
+            description:
+              type: string              
+            startDate:
+              type: string
+              format: date-time
+            endDate:
+              type: string
+              format: date-time
+    ValidatorResponse:
+     type: object
+     required:
+          - accountType
+          - plate
+          - country
+          - provider
+     properties:
+            accountType: 
+              $ref: "#/components/schemas/AccountTypeEnum"
+            plate:
+              type: string
+            country:
+              type: string
+              pattern: ^[A-Z]{3}$
+            provider:
+              $ref: "#/components/schemas/Provider"
+    ErrorResponse:
+     type: object
+     required:
+          - errorCode
+          - errorDescription
+          - timestamp
+     properties:
+            errorCode: 
+              type: number
+            errorDescription:
+              type: string
+            timestamp:
+              type: string
+              format: date-time 
