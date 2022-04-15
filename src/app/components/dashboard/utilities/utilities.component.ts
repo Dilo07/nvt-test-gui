@@ -59,6 +59,6 @@ export class UtilitiesComponent implements OnInit {
 
   public generateXML(): void {
     let countryCode = this.formGroup.get('ctrlCountryCode')?.value;
-    console.log(xml.generateXml(1,'',this.dataSource.data))
+    console.log(xml.generateXml(1,countryCode,this.dataSource.data))
   }
 }

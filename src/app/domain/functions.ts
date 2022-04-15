@@ -7,7 +7,7 @@ export class xml {
     private static possible: string = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 
     public static generateXml(spID: number, cCodeProvider: string, plates: TableSP[]): string {
-        let provider = this.generateProvider(cCodeProvider);
+        let provider = this.generateProvider(spID, cCodeProvider);
         let plateList = this.generatePlateList(plates);
         let format = require('xml-formatter');
         let xml = `
@@ -27,10 +27,14 @@ export class xml {
                 </adus>
             </infoExchangeContent>
         </InfoExchange>`
-        return format(xml)
+        return format(xml, {
+            indentation: '  ',
+            collapseContent: true,
+            lineSeparator: '\n'
+        })
     }
 
-    private static generateProvider(countryCode: string): string {
+    private static generateProvider(spID: number, countryCode: string): string {
         let country = this.encodeCountry(countryCode)
         let year = String(moment(moment()).get('year'));
         let mounth = String(moment(moment()).format('MM'));
@@ -44,18 +48,18 @@ export class xml {
 			<aidIdentifier>0</aidIdentifier>
 			<apduOriginator>
 				<countryCode>${country}</countryCode>
-				<providerIdentifier>2</providerIdentifier>
+				<providerIdentifier>${spID}</providerIdentifier>
 			</apduOriginator>
 			<informationSenderID>
 				<countryCode>${country}</countryCode>
-				<providerIdentifier>2</providerIdentifier>
+				<providerIdentifier>${spID}</providerIdentifier>
 			</informationSenderID>
 			<informationrecipientID>
 				<countryCode>${country}</countryCode>
-				<providerIdentifier>2</providerIdentifier>
+				<providerIdentifier>${spID}</providerIdentifier>
 			</informationrecipientID>
 			<apduIdentifier>794168752</apduIdentifier>
-			<apduDate>20220407130008</apduDate>
+			<apduDate>${dateTransform}</apduDate>
 		</apci>
         `
     }
