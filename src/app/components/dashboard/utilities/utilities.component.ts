@@ -3,6 +3,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatTableDataSource } from '@angular/material/table';
 import * as _moment from 'moment';
+import { xml } from 'src/app/domain/functions';
 import { TableSP } from 'src/app/domain/interface';
 const moment = _moment;
 
@@ -20,7 +21,7 @@ export class UtilitiesComponent implements OnInit {
   public dateTransform!: string;
   public formGroup!: FormGroup;
   public panelOpenState = false;
-  public displayedColumns: string[] = ['nation', 'plate'];
+  public displayedColumns: string[] = ['nation', 'plate', 'operation'];
   public dataSource = new MatTableDataSource<TableSP>();
   public dataToDisplay: TableSP[] = [];
 
@@ -53,15 +54,6 @@ export class UtilitiesComponent implements OnInit {
 
   public generateXML(): void {
     let countryCode = this.formGroup.get('ctrlCountryCode')?.value;
-    let first = countryCode[0].charCodeAt(0).toString(2);
-    let second = countryCode[1].charCodeAt(0)
-   /*  first.charCodeAt(0).toString(2);
-    second.charCodeAt(0) */;
-    console.log(first)
-  /*   let output = '';
-    for (var i = 0; i < countryCode.length; i++) {
-      output += countryCode[i].charCodeAt(0).toString(2);
-    }
-    console.log(output) */
+    console.log(xml.generateXml(1,'',this.dataSource.data))
   }
 }
