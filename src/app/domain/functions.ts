@@ -77,8 +77,7 @@ export class xml {
         `
     }
 
-    private static countryCodeAlphabet: Map<string, number> = new Map<string, number>();
-
+    private static countryCodeAlphabet: Map<string, number> = this.initAlphabet();
 
     public static encodeCountry(country: string): string {
         if (this.countryCodeAlphabet.size == 0)
@@ -112,32 +111,34 @@ export class xml {
         return (dec >>> 0).toString(2);
     }
 
-    private static initAlphabet() {
-        this.countryCodeAlphabet.set('A', 24);
-        this.countryCodeAlphabet.set('B', 19);
-        this.countryCodeAlphabet.set('C', 14);
-        this.countryCodeAlphabet.set('D', 18);
-        this.countryCodeAlphabet.set('E', 16);
-        this.countryCodeAlphabet.set('F', 22);
-        this.countryCodeAlphabet.set('G', 11);
-        this.countryCodeAlphabet.set('H', 5);
-        this.countryCodeAlphabet.set('I', 12);
-        this.countryCodeAlphabet.set('J', 26);
-        this.countryCodeAlphabet.set('K', 30);
-        this.countryCodeAlphabet.set('L', 9);
-        this.countryCodeAlphabet.set('M', 7);
-        this.countryCodeAlphabet.set('N', 6);
-        this.countryCodeAlphabet.set('O', 3);
-        this.countryCodeAlphabet.set('P', 13);
-        this.countryCodeAlphabet.set('Q', 29);
-        this.countryCodeAlphabet.set('R', 10);
-        this.countryCodeAlphabet.set('S', 20);
-        this.countryCodeAlphabet.set('T', 1);
-        this.countryCodeAlphabet.set('U', 28);
-        this.countryCodeAlphabet.set('V', 15);
-        this.countryCodeAlphabet.set('W', 25);
-        this.countryCodeAlphabet.set('X', 23);
-        this.countryCodeAlphabet.set('Y', 21);
-        this.countryCodeAlphabet.set('Z', 17);
+    private static initAlphabet() : Map<string, number> {
+        let countryCodeAlphabet: Map<string, number> = new Map<string, number>();
+        countryCodeAlphabet.set('A', 24);
+        countryCodeAlphabet.set('B', 19);
+        countryCodeAlphabet.set('C', 14);
+        countryCodeAlphabet.set('D', 18);
+        countryCodeAlphabet.set('E', 16);
+        countryCodeAlphabet.set('F', 22);
+        countryCodeAlphabet.set('G', 11);
+        countryCodeAlphabet.set('H', 5);
+        countryCodeAlphabet.set('I', 12);
+        countryCodeAlphabet.set('J', 26);
+        countryCodeAlphabet.set('K', 30);
+        countryCodeAlphabet.set('L', 9);
+        countryCodeAlphabet.set('M', 7);
+        countryCodeAlphabet.set('N', 6);
+        countryCodeAlphabet.set('O', 3);
+        countryCodeAlphabet.set('P', 13);
+        countryCodeAlphabet.set('Q', 29);
+        countryCodeAlphabet.set('R', 10);
+        countryCodeAlphabet.set('S', 20);
+        countryCodeAlphabet.set('T', 1);
+        countryCodeAlphabet.set('U', 28);
+        countryCodeAlphabet.set('V', 15);
+        countryCodeAlphabet.set('W', 25);
+        countryCodeAlphabet.set('X', 23);
+        countryCodeAlphabet.set('Y', 21);
+        countryCodeAlphabet.set('Z', 17);
+        return countryCodeAlphabet;
     }
 }
