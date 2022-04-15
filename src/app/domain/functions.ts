@@ -113,31 +113,31 @@ export class xml {
     }
 
     private static initAlphabet() {
-        this.countryCodeAlphabet.set('A', (24));
-        this.countryCodeAlphabet.set('B', (19));
-        this.countryCodeAlphabet.set('C', (14));
-        this.countryCodeAlphabet.set('D', (18));
-        this.countryCodeAlphabet.set('E', (16));
-        this.countryCodeAlphabet.set('F', (22));
-        this.countryCodeAlphabet.set('G', (11));
-        this.countryCodeAlphabet.set('H', (5));
-        this.countryCodeAlphabet.set('I', (12));
-        this.countryCodeAlphabet.set('J', (26));
-        this.countryCodeAlphabet.set('K', (30));
-        this.countryCodeAlphabet.set('L', (9));
-        this.countryCodeAlphabet.set('M', (7));
-        this.countryCodeAlphabet.set('N', (6));
-        this.countryCodeAlphabet.set('O', (3));
-        this.countryCodeAlphabet.set('P', (13));
-        this.countryCodeAlphabet.set('Q', (29));
-        this.countryCodeAlphabet.set('R', (10));
-        this.countryCodeAlphabet.set('S', (20));
-        this.countryCodeAlphabet.set('T', (1));
-        this.countryCodeAlphabet.set('U', (28));
-        this.countryCodeAlphabet.set('V', (15));
-        this.countryCodeAlphabet.set('W', (25));
-        this.countryCodeAlphabet.set('X', (23));
-        this.countryCodeAlphabet.set('Y', (21));
-        this.countryCodeAlphabet.set('Z', (17));
+        this.countryCodeAlphabet.set('A', 24);
+        this.countryCodeAlphabet.set('B', 19);
+        this.countryCodeAlphabet.set('C', 14);
+        this.countryCodeAlphabet.set('D', 18);
+        this.countryCodeAlphabet.set('E', 16);
+        this.countryCodeAlphabet.set('F', 22);
+        this.countryCodeAlphabet.set('G', 11);
+        this.countryCodeAlphabet.set('H', 5);
+        this.countryCodeAlphabet.set('I', 12);
+        this.countryCodeAlphabet.set('J', 26);
+        this.countryCodeAlphabet.set('K', 30);
+        this.countryCodeAlphabet.set('L', 9);
+        this.countryCodeAlphabet.set('M', 7);
+        this.countryCodeAlphabet.set('N', 6);
+        this.countryCodeAlphabet.set('O', 3);
+        this.countryCodeAlphabet.set('P', 13);
+        this.countryCodeAlphabet.set('Q', 29);
+        this.countryCodeAlphabet.set('R', 10);
+        this.countryCodeAlphabet.set('S', 20);
+        this.countryCodeAlphabet.set('T', 1);
+        this.countryCodeAlphabet.set('U', 28);
+        this.countryCodeAlphabet.set('V', 15);
+        this.countryCodeAlphabet.set('W', 25);
+        this.countryCodeAlphabet.set('X', 23);
+        this.countryCodeAlphabet.set('Y', 21);
+        this.countryCodeAlphabet.set('Z', 17);
     }
 }
