@@ -28,7 +28,7 @@
             <mat-card fxFlex="80" *ngIf="!validator">
                 <mat-card-title> Genera file XML</mat-card-title>
                 <mat-card-content fxLayout="column" fxLayoutGap="20px">
-                    <form [formGroup]="formPlateGroup" fxLayout="row" fxLayoutGap="20px">
+                    <form [formGroup]="formGroup" fxLayout="row" fxLayoutGap="20px">
                         <mat-form-field appearance="fill">
                             <mat-label>Provider Identifier</mat-label>
                             <input type="number" matInput autocomplete="off" formControlName="ctrlProvId" required>
@@ -36,7 +36,8 @@
                         </mat-form-field>
                         <mat-form-field appearance="fill">
                             <mat-label>Coutry code</mat-label>
-                            <input matInput autocomplete="off" formControlName="ctrlCountryCode" minlength="2" maxlength="2" required>
+                            <input matInput autocomplete="off" formControlName="ctrlCountryCode" minlength="2"
+                                maxlength="2" required>
                             <mat-error>Inserisci un coutry code corretto</mat-error>
                         </mat-form-field>
                     </form>
@@ -72,9 +73,10 @@
                         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
                         <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
                     </table>
-                    <span><button mat-raised-button color="primary" (click)="generateXML()" class="demo-button">
-                        Genera XML
-                    </button></span>
+                    <span><button mat-raised-button color="primary"
+                            [disabled]="formGroup.invalid || dataSource.data.length === 0" (click)="generateXML()">
+                            Genera XML
+                        </button></span>
                 </mat-card-content>
                 <!-- <textarea cols="30" rows="4"></textarea> -->
             </mat-card>

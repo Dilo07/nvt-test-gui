@@ -18,7 +18,7 @@ const moment = _moment;
 export class UtilitiesComponent implements OnInit {
   @Input() validator!: boolean;
   public dateTransform!: string;
-  public formPlateGroup!: FormGroup;
+  public formGroup!: FormGroup;
   public panelOpenState = false;
   public displayedColumns: string[] = ['nation', 'plate'];
   public dataSource = new MatTableDataSource<TableSP>();
@@ -27,7 +27,7 @@ export class UtilitiesComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
-    this.formPlateGroup = new FormGroup({
+    this.formGroup = new FormGroup({
       ctrlProvId: new FormControl('', Validators.required),
       ctrlCountryCode: new FormControl('IT', Validators.required)
     })
@@ -52,7 +52,16 @@ export class UtilitiesComponent implements OnInit {
   }
 
   public generateXML(): void {
-    console.log(this.dataSource.data)
-
+    let countryCode = this.formGroup.get('ctrlCountryCode')?.value;
+    let first = countryCode[0].charCodeAt(0).toString(2);
+    let second = countryCode[1].charCodeAt(0)
+   /*  first.charCodeAt(0).toString(2);
+    second.charCodeAt(0) */;
+    console.log(first)
+  /*   let output = '';
+    for (var i = 0; i < countryCode.length; i++) {
+      output += countryCode[i].charCodeAt(0).toString(2);
+    }
+    console.log(output) */
   }
 }
