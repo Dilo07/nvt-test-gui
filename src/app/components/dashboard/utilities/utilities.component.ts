@@ -42,13 +42,6 @@ export class UtilitiesComponent implements OnInit {
   public changeDate(evt: MatDatetimePickerInputEvent<any>): void {
     const timeZone = Math.abs(evt.value.getTimezoneOffset());
     this.dateTransform = moment(moment(evt.value).utc()).add(timeZone, 'minutes').format();
-    /*    let year = String(moment(evt.value).get('year'));
-       let mounth = String(moment(evt.value).format('MM'));
-       let day = String(moment(evt.value).format('DD'));
-       let hours = String(moment(evt.value).get('hours'));
-       let minutes = String(moment(evt.value).get('minutes'));
-       let seconds = String(moment(evt.value).get('seconds'));
-       this.dateTransform = year + mounth + day + hours + minutes + seconds */
   }
 
   public addRow(): void {

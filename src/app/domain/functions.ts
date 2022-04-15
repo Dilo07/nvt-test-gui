@@ -1,13 +1,16 @@
+import * as _moment from 'moment';
 import { TableSP } from "./interface";
 
+const moment = _moment;
 export class xml {
     private static countryCodeAlphabet: Map<string, number> = this.initAlphabet();
-    private static possible : string = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+    private static possible: string = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 
     public static generateXml(spID: number, cCodeProvider: string, plates: TableSP[]): string {
-        let provider = this.generateProvider();
+        let provider = this.generateProvider(cCodeProvider);
         let plateList = this.generatePlateList(plates);
-        return `
+        let format = require('xml-formatter');
+        let xml = `
         <InfoExchange>
             <infoExchangeContent>
                 ${provider}
@@ -24,22 +27,31 @@ export class xml {
                 </adus>
             </infoExchangeContent>
         </InfoExchange>`
+        return format(xml)
     }
 
-    private static generateProvider(): string {
+    private static generateProvider(countryCode: string): string {
+        let country = this.encodeCountry(countryCode)
+        let year = String(moment(moment()).get('year'));
+        let mounth = String(moment(moment()).format('MM'));
+        let day = String(moment(moment()).format('DD'));
+        let hours = String(moment(moment()).get('hours'));
+        let minutes = String(moment(moment()).get('minutes'));
+        let seconds = String(moment(moment()).get('seconds'));
+        let dateTransform = year + mounth + day + hours + minutes + seconds
         return `
         <apci>
 			<aidIdentifier>0</aidIdentifier>
 			<apduOriginator>
-				<countryCode>0110000001</countryCode>
+				<countryCode>${country}</countryCode>
 				<providerIdentifier>2</providerIdentifier>
 			</apduOriginator>
 			<informationSenderID>
-				<countryCode>0110000001</countryCode>
+				<countryCode>${country}</countryCode>
 				<providerIdentifier>2</providerIdentifier>
 			</informationSenderID>
 			<informationrecipientID>
-				<countryCode>0110000001</countryCode>
+				<countryCode>${country}</countryCode>
 				<providerIdentifier>2</providerIdentifier>
 			</informationrecipientID>
 			<apduIdentifier>794168752</apduIdentifier>
@@ -52,19 +64,20 @@ export class xml {
         let list = '';
         plates.forEach(plate => {
             let plateDecode = this.converPlate(plate.plate);
+            let country = this.encodeCountry(plate.nation);
             list += `
             <ExceptionListEntry>
                 <userId>
                     <licencePlateNumber>
-                        <countryCode>0110000001</countryCode>
+                        <countryCode>${country}</countryCode>
                         <alphabetIndicator>
                             <latinAlphabetNo1/>
                         </alphabetIndicator>
                         <licencePlateNumber>${plateDecode}</licencePlateNumber>
                     </licencePlateNumber>
                 </userId>
-                <statusType>3</statusType>
-                <reasonCode>8</reasonCode>
+                <statusType>${plate.selectAdd ? plates.length : 0}</statusType>
+                <reasonCode>${plate.selectAdd ? 8 : 0}</reasonCode>
             </ExceptionListEntry>
             `
         });
@@ -83,8 +96,8 @@ export class xml {
     public static encodeCountry(country: string): string {
         if (this.countryCodeAlphabet.size == 0)
             this.initAlphabet();
-        if(!country || country.length != 2) {
-             // TODO  FAIL
+        if (!country || country.length != 2) {
+            // TODO  FAIL
         }
         country = country.toUpperCase();
         const first = this.countryCodeAlphabet.get(country[0]);
@@ -103,7 +116,7 @@ export class xml {
         return this.pad(this.dec2bin(res), 10);
     }
 
-    private static pad(byteStr : string, size: number) : string{
+    private static pad(byteStr: string, size: number): string {
         while (byteStr.length < size) byteStr = "0" + byteStr;
         return byteStr;
     }
@@ -112,7 +125,7 @@ export class xml {
         return (dec >>> 0).toString(2);
     }
 
-    private static initAlphabet() : Map<string, number> {
+    private static initAlphabet(): Map<string, number> {
         let countryCodeAlphabet: Map<string, number> = new Map<string, number>();
         countryCodeAlphabet.set('A', 24);
         countryCodeAlphabet.set('B', 19);
