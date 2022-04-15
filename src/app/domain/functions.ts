@@ -77,7 +77,7 @@ export class functions {
                         <licencePlateNumber>${plateDecode}</licencePlateNumber>
                     </licencePlateNumber>
                 </userId>
-                <statusType>${plate.selectAdd ? plates.length : 0}</statusType>
+                <statusType>${plate.selectAdd ? 3 : 0}</statusType>
                 <reasonCode>${plate.selectAdd ? 8 : 0}</reasonCode>
             </ExceptionListEntry>
             `
