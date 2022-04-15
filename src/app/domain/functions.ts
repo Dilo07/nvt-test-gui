@@ -50,10 +50,10 @@ export class functions {
 			</informationSenderID>
 			<informationrecipientID>
 				<countryCode>${country}</countryCode>
-				<providerIdentifier>${spID}</providerIdentifier>
+				<providerIdentifier>48</providerIdentifier>
 			</informationrecipientID>
 			<apduIdentifier>794168752</apduIdentifier>
-			<apduDate>${dateTransform}</apduDate>
+			<apduDate>${dateTransform.replace(":","")}</apduDate>
 		</apci>
         `
     }
@@ -83,12 +83,16 @@ export class functions {
     }
 
     private static converPlate(plate: string): string {
-        let bytes: string = '';
-        for (var i = 0; i < plate.length; ++i) {
-            let code = plate.charCodeAt(i).toString(16);
-            bytes += code;
+        if(!plate){
+            throw new Error('An error occurred');
+        }else{
+            let bytes: string = '';
+            for (var i = 0; i < plate.length; ++i) {
+                let code = plate.charCodeAt(i).toString(16);
+                bytes += code;
+            }
+            return bytes
         }
-        return bytes
     }
 
     public static encodeCountry(country: string): string {
