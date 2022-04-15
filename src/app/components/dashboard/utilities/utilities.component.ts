@@ -14,6 +14,11 @@ const moment = _moment;
   table {
     width: 100%;
   }
+  .mat-column-id { max-width: 10%}
+  .mat-column-nation { max-width: 20%}
+  .mat-column-plate { max-width: 20%}
+  .mat-column-operation { max-width: 20%}
+  .mat-column-delete { max-width: 30%}
   `]
 })
 export class UtilitiesComponent implements OnInit {
@@ -21,7 +26,7 @@ export class UtilitiesComponent implements OnInit {
   public dateTransform!: string;
   public formGroup!: FormGroup;
   public panelOpenState = false;
-  public displayedColumns: string[] = ['nation', 'plate', 'operation'];
+  public displayedColumns: string[] = ['id', 'nation', 'plate', 'operation', 'delete'];
   public dataSource = new MatTableDataSource<TableSP>();
   public dataToDisplay: TableSP[] = [];
 
@@ -47,8 +52,15 @@ export class UtilitiesComponent implements OnInit {
   }
 
   public addRow(): void {
-    let row: TableSP = { plate: '', nation: 'IT', selectAdd: true }
+    let row: TableSP = { id: this.dataToDisplay.length + 1, plate: '', nation: 'IT', selectAdd: true }
     this.dataToDisplay = [...this.dataToDisplay, row]
+    this.dataSource.data = this.dataToDisplay;
+  }
+
+  public deleteRow(id: number) : void {
+    this.dataToDisplay = this.dataToDisplay.filter((value) => {
+      return value.id !== id;
+    })
     this.dataSource.data = this.dataToDisplay;
   }
 

@@ -46,6 +46,13 @@
                         </button></span>
                     <table mat-table [dataSource]="dataSource" class="mat-elevation-z8 demo-table">
 
+                        <ng-container matColumnDef="id">
+                            <th mat-header-cell *matHeaderCellDef>id</th>
+                            <td mat-cell *matCellDef="let element">
+                                {{element.id}}
+                            </td>
+                        </ng-container>
+
                         <ng-container matColumnDef="nation">
                             <th mat-header-cell *matHeaderCellDef>Nazione</th>
                             <td mat-cell *matCellDef="let element">
@@ -79,11 +86,18 @@
                             </td>
                         </ng-container>
 
+                        <ng-container matColumnDef="delete">
+                            <th mat-header-cell *matHeaderCellDef></th>
+                            <td mat-cell *matCellDef="let element">
+                                <button mat-icon-button (click)="deleteRow(element.id)"><mat-icon color="warn">delete</mat-icon></button>
+                            </td>
+                        </ng-container>
+
                         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
                         <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
                     </table>
                     <span><button mat-raised-button color="primary"
-                            [disabled]="formGroup.invalid || dataSource.data.length === 0" (click)="generateXML()">
+                            [disabled]="formGroup.invalid" (click)="generateXML()">
                             Genera XML
                         </button></span>
                 </mat-card-content>
