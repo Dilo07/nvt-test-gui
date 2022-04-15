@@ -41,9 +41,18 @@
                             <mat-error>Inserisci un coutry code corretto</mat-error>
                         </mat-form-field>
                     </form>
-                    <span><button mat-raised-button color="primary" (click)="addRow()" class="demo-button">
-                            Aggiungi riga
-                        </button></span>
+                    <div fxLayout="row" fxLayoutGap="20px">
+                        <span><button mat-raised-button color="primary" (click)="addRow()">
+                                Aggiungi riga
+                            </button></span>
+                        <mat-form-field appearance="fill">
+                            <mat-label>Numero di righe</mat-label>
+                            <input type="number" matInput autocomplete="off" [(ngModel)]="numRows" min="0" required>
+                        </mat-form-field>
+                        <span><button mat-raised-button color="primary" [disabled]="numRows <= 0" (click)="addRow(numRows)">
+                                Genera righe random
+                            </button></span>
+                    </div>
                     <table mat-table [dataSource]="dataSource" class="mat-elevation-z8 demo-table">
 
                         <ng-container matColumnDef="id">
@@ -100,11 +109,15 @@
                         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
                         <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
                     </table>
+                    <mat-paginator [style.display]="dataSource.data.length === 0 ? 'none' : '' " [pageSize]="5"
+                        [pageSizeOptions]="[5, 10, 25]"></mat-paginator>
                     <div fxLayout="row" fxLayoutGap="20px">
-                        <span><button mat-raised-button color="primary" [disabled]="formGroup.invalid"
+                        <span>
+                            <button mat-raised-button color="primary" [disabled]="formGroup.invalid"
                                 (click)="generateXML()">
-                                Genera XML
-                            </button></span>
+                                {{xmlGenerate ? 'Aggiorna XML' : 'Genera XML'}}
+                            </button>
+                        </span>
                         <textarea cols="100" rows="5" [(ngModel)]="xmlGenerate"></textarea>
                         <button mat-icon-button [cdkCopyToClipboard]="xmlGenerate" *ngIf="xmlGenerate">
                             <mat-icon matTooltip="copia xml">content_copy</mat-icon>

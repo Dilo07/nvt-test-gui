@@ -1,9 +1,10 @@
 import { MatDatetimePickerInputEvent } from '@angular-material-components/datetime-picker';
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import * as _moment from 'moment';
-import { xml } from 'src/app/domain/functions';
+import { functions } from 'src/app/domain/functions';
 import { TableSP } from 'src/app/domain/interface';
 const moment = _moment;
 
@@ -22,6 +23,7 @@ const moment = _moment;
   `]
 })
 export class UtilitiesComponent implements OnInit {
+  @ViewChild(MatPaginator) paginator!: MatPaginator;
   @Input() validator!: boolean;
   public dateTransform!: string;
   public formGroup!: FormGroup;
@@ -30,6 +32,7 @@ export class UtilitiesComponent implements OnInit {
   public dataSource = new MatTableDataSource<TableSP>();
   public dataToDisplay: TableSP[] = [];
   public xmlGenerate: string = '';
+  public numRows = 0;
 
   constructor() { }
 
@@ -41,17 +44,27 @@ export class UtilitiesComponent implements OnInit {
   }
 
   public changeDate(evt: MatDatetimePickerInputEvent<any>): void {
-    const timeZone = Math.abs(evt.value.getTimezoneOffset());
-    this.dateTransform = moment(moment(evt.value).utc()).add(timeZone, 'minutes').format();
+    this.dateTransform = moment(moment(evt.value)).format('yyyy-MM-DDTHH:mm:ssZ')
   }
 
-  public addRow(): void {
-    let row: TableSP = { id: this.dataToDisplay.length + 1, plate: '', nation: 'IT', selectAdd: true }
-    this.dataToDisplay = [...this.dataToDisplay, row]
-    this.dataSource.data = this.dataToDisplay;
+  public addRow(numRows?: number): void {
+    if (numRows && numRows > 0) {
+      let row: TableSP[] = [];
+      for (let i = 0; i < numRows; i++) {
+        row.push({ id: i + 1, plate: functions.generateRandomPlate(), nation: 'IT', selectAdd: true });
+      }
+      this.dataToDisplay = row;
+      this.dataSource.data = this.dataToDisplay;
+      this.dataSource.paginator = this.paginator;
+    } else {
+      let row: TableSP = { id: this.dataToDisplay.length + 1, plate: '', nation: 'IT', selectAdd: true }
+      this.dataToDisplay = [...this.dataToDisplay, row]
+      this.dataSource.data = this.dataToDisplay;
+      this.dataSource.paginator = this.paginator;
+    }
   }
 
-  public deleteRow(id: number) : void {
+  public deleteRow(id: number): void {
     this.dataToDisplay = this.dataToDisplay.filter((value) => {
       return value.id !== id;
     })
@@ -60,7 +73,7 @@ export class UtilitiesComponent implements OnInit {
 
   public generateXML(): void {
     let countryCode = this.formGroup.get('ctrlCountryCode')?.value;
-    this.xmlGenerate = xml.generateXml(1,countryCode,this.dataSource.data)
-    console.log(this.xmlGenerate)
+    let prvId = this.formGroup.get('ctrlProvId')?.value
+    this.xmlGenerate = functions.generateXml(prvId, countryCode, this.dataSource.data)
   }
 }

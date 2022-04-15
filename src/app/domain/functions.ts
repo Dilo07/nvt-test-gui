@@ -2,7 +2,7 @@ import * as _moment from 'moment';
 import { TableSP } from "./interface";
 
 const moment = _moment;
-export class xml {
+export class functions {
     private static countryCodeAlphabet: Map<string, number> = this.initAlphabet();
     private static possible: string = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 
@@ -36,13 +36,7 @@ export class xml {
 
     private static generateProvider(spID: number, countryCode: string): string {
         let country = this.encodeCountry(countryCode)
-        let year = String(moment(moment()).get('year'));
-        let mounth = String(moment(moment()).format('MM'));
-        let day = String(moment(moment()).format('DD'));
-        let hours = String(moment(moment()).get('hours'));
-        let minutes = String(moment(moment()).get('minutes'));
-        let seconds = String(moment(moment()).get('seconds'));
-        let dateTransform = year + mounth + day + hours + minutes + seconds
+        let dateTransform = moment(moment()).format('yyyyMMDDHHmmssZ');
         return `
         <apci>
 			<aidIdentifier>0</aidIdentifier>
@@ -75,7 +69,7 @@ export class xml {
                     <licencePlateNumber>
                         <countryCode>${country}</countryCode>
                         <alphabetIndicator>
-                            <latinAlphabetNo1/>
+                        <latinAlphabetNo1/>
                         </alphabetIndicator>
                         <licencePlateNumber>${plateDecode}</licencePlateNumber>
                     </licencePlateNumber>
