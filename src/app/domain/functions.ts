@@ -1,3 +1,4 @@
+import { MatSnackBar } from '@angular/material/snack-bar';
 import * as _moment from 'moment';
 import { TableSP } from "./interface";
 
@@ -6,6 +7,8 @@ export class functions {
     private static countryCodeAlphabet: Map<string, number> = this.initAlphabet();
     private static possible: string = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 
+    constructor(private snackBar: MatSnackBar) { }
+    
     public static generateXml(spID: number, cCodeProvider: string, plates: TableSP[]): string {
         let provider = this.generateProvider(spID, cCodeProvider);
         let plateList = this.generatePlateList(plates);
@@ -53,7 +56,7 @@ export class functions {
 				<providerIdentifier>48</providerIdentifier>
 			</informationrecipientID>
 			<apduIdentifier>794168752</apduIdentifier>
-			<apduDate>${dateTransform.replace(":","")}</apduDate>
+			<apduDate>${dateTransform.replace(":", "")}</apduDate>
 		</apci>
         `
     }
@@ -83,9 +86,9 @@ export class functions {
     }
 
     private static converPlate(plate: string): string {
-        if(!plate){
-            throw new Error('An error occurred');
-        }else{
+        if (!plate) {
+            throw new Error('Targa non valida');
+        } else {
             let bytes: string = '';
             for (var i = 0; i < plate.length; ++i) {
                 let code = plate.charCodeAt(i).toString(16);
@@ -96,11 +99,11 @@ export class functions {
     }
 
     public static encodeCountry(country: string): string {
-        if (this.countryCodeAlphabet.size === 0){
+        if (this.countryCodeAlphabet.size === 0) {
             this.initAlphabet();
         }
         if (!country || country.length != 2) {
-            // TODO  FAIL
+            throw new Error('Codice paese non valido');
         }
         country = country.toUpperCase();
         const first = this.countryCodeAlphabet.get(country[0]);
@@ -110,7 +113,7 @@ export class functions {
             res = (res | first << 11);
             res = (res | second << 6);
         } else {
-            // TODO  FAIL
+            throw new Error('Codice paese non valido');
         }
         res = res >> 6;
         const alf = (0 & 0x3F);

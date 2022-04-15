@@ -6,6 +6,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import * as _moment from 'moment';
 import { functions } from 'src/app/domain/functions';
 import { TableSP } from 'src/app/domain/interface';
+import { SnackBar } from 'src/app/domain/snackBar.service';
 const moment = _moment;
 
 @Component({
@@ -34,7 +35,9 @@ export class UtilitiesComponent implements OnInit {
   public xmlGenerate: string = '';
   public numRows = 0;
 
-  constructor() { }
+  constructor(
+    private snackBar: SnackBar
+  ) { }
 
   ngOnInit(): void {
     this.formGroup = new FormGroup({
@@ -74,6 +77,10 @@ export class UtilitiesComponent implements OnInit {
   public generateXML(): void {
     let countryCode = this.formGroup.get('ctrlCountryCode')?.value;
     let prvId = this.formGroup.get('ctrlProvId')?.value
-    this.xmlGenerate = functions.generateXml(prvId, countryCode, this.dataSource.data)
+    try{
+      this.xmlGenerate = functions.generateXml(prvId, countryCode, this.dataSource.data)
+    }catch(error){
+      this.snackBar.openSnackBar(String(error), 'ERROR')
+    }
   }
 }

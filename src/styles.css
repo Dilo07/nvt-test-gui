@@ -54,3 +54,14 @@ body {
     margin: 10px;
     font-family: Roboto, "Helvetica Neue", sans-serif;
 }
+
+/* snackbar */
+
+.ERROR {
+    background-color: #FF0000 !important;
+    color: white !important;
+}
+
+.mat-simple-snackbar-action {
+    color: white !important;
+}
