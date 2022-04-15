@@ -1,6 +1,8 @@
+import { TableSP } from "./interface";
+
 export class xml {
 
-    public static generateXml(): string {
+    public static generateXml(spID: number, cCodeProvider:string, plates: TableSP[] ): string {
         return `
         <InfoExchange>
             <infoExchangeContent>
