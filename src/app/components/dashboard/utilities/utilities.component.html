@@ -37,8 +37,7 @@
                         <mat-form-field appearance="fill">
                             <mat-label>Coutry code</mat-label>
                             <input matInput autocomplete="off" formControlName="ctrlCountryCode" minlength="2"
-                                maxlength="2" required #countryCode
-                                (input)="formGroup.patchValue({ctrlCountryCode: countryCode.value.toUpperCase()})">
+                                maxlength="2" required oninput="this.value = this.value.toUpperCase()">
                             <mat-error>Inserisci un coutry code corretto</mat-error>
                         </mat-form-field>
                     </form>
@@ -101,12 +100,17 @@
                         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
                         <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
                     </table>
-                    <span><button mat-raised-button color="primary" [disabled]="formGroup.invalid"
-                            (click)="generateXML()">
-                            Genera XML
-                        </button></span>
+                    <div fxLayout="row" fxLayoutGap="20px">
+                        <span><button mat-raised-button color="primary" [disabled]="formGroup.invalid"
+                                (click)="generateXML()">
+                                Genera XML
+                            </button></span>
+                        <textarea cols="100" rows="5" [(ngModel)]="xmlGenerate"></textarea>
+                        <button mat-icon-button [cdkCopyToClipboard]="xmlGenerate" *ngIf="xmlGenerate">
+                            <mat-icon matTooltip="copia xml">content_copy</mat-icon>
+                        </button>
+                    </div>
                 </mat-card-content>
-                <!-- <textarea cols="30" rows="4"></textarea> -->
             </mat-card>
         </div>
     </mat-expansion-panel>

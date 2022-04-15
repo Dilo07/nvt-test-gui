@@ -29,6 +29,7 @@ export class UtilitiesComponent implements OnInit {
   public displayedColumns: string[] = ['id', 'nation', 'plate', 'operation', 'delete'];
   public dataSource = new MatTableDataSource<TableSP>();
   public dataToDisplay: TableSP[] = [];
+  public xmlGenerate: string = '';
 
   constructor() { }
 
@@ -59,7 +60,7 @@ export class UtilitiesComponent implements OnInit {
 
   public generateXML(): void {
     let countryCode = this.formGroup.get('ctrlCountryCode')?.value;
-    console.log(this.dataSource.data)
-    console.log(xml.generateXml(1,countryCode,this.dataSource.data))
+    this.xmlGenerate = xml.generateXml(1,countryCode,this.dataSource.data)
+    console.log(this.xmlGenerate)
   }
 }
