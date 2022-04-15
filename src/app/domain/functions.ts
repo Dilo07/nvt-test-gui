@@ -74,4 +74,9 @@ export class xml {
         </InfoExchange>
         `
     }
+
+
+    public static encodeCountry(country: string) : string {
+        return '';
+    } 
 }
