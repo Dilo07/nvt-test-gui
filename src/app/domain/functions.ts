@@ -8,7 +8,7 @@ export class functions {
     private static possible: string = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 
     constructor(private snackBar: MatSnackBar) { }
-    
+
     public static generateXml(spID: number, cCodeProvider: string, plates: TableSP[]): string {
         let provider = this.generateProvider(spID, cCodeProvider);
         let plateList = this.generatePlateList(plates);

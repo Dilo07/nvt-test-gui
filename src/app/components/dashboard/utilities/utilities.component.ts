@@ -1,9 +1,11 @@
 import { MatDatetimePickerInputEvent } from '@angular-material-components/datetime-picker';
-import { Component, Input, OnInit, ViewChild } from '@angular/core';
+import { ChangeDetectorRef, Component, Input, OnInit, ViewChild } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import * as _moment from 'moment';
+import { of, interval } from 'rxjs';
+import { delay } from "rxjs/operators";
 import { functions } from 'src/app/domain/functions';
 import { TableSP } from 'src/app/domain/interface';
 import { SnackBar } from 'src/app/domain/snackBar.service';
@@ -34,9 +36,11 @@ export class UtilitiesComponent implements OnInit {
   public dataToDisplay: TableSP[] = [];
   public xmlGenerate: string = '';
   public numRows = 0;
+  public complete = true;
 
   constructor(
-    private snackBar: SnackBar
+    private snackBar: SnackBar,
+    private cdr: ChangeDetectorRef
   ) { }
 
   ngOnInit(): void {
@@ -51,20 +55,28 @@ export class UtilitiesComponent implements OnInit {
   }
 
   public addRow(numRows?: number): void {
-    if (numRows && numRows > 0) {
-      let row: TableSP[] = [];
-      for (let i = 0; i < numRows; i++) {
-        row.push({ id: i + 1, plate: '#' + functions.generateRandomPlate(), nation: 'IT', selectAdd: true });
-      }
-      this.dataToDisplay = row;
-      this.dataSource.data = this.dataToDisplay;
-      this.dataSource.paginator = this.paginator;
-    } else {
-      let row: TableSP = { id: this.dataToDisplay.length + 1, plate: '', nation: 'IT', selectAdd: true }
-      this.dataToDisplay = [...this.dataToDisplay, row]
-      this.dataSource.data = this.dataToDisplay;
-      this.dataSource.paginator = this.paginator;
-    }
+    this.complete = false;
+    let async = of(null).pipe(delay(200))
+    async.subscribe({
+      next: () => {
+        if (numRows && numRows > 0) {
+          let row: TableSP[] = [];
+          for (let i = 0; i < numRows; i++) {
+            row.push({ id: i + 1, plate: '#' + functions.generateRandomPlate(), nation: 'IT', selectAdd: true });
+          }
+          this.dataToDisplay = row;
+          this.dataSource.data = this.dataToDisplay;
+          this.dataSource.paginator = this.paginator;
+        } else {
+          let row: TableSP = { id: this.dataToDisplay.length + 1, plate: '', nation: 'IT', selectAdd: true }
+          this.dataToDisplay = [...this.dataToDisplay, row]
+          this.dataSource.data = this.dataToDisplay;
+          this.dataSource.paginator = this.paginator;
+        }
+      },
+      error: () => null,
+      complete: () => this.complete = true
+    })
   }
 
   public deleteRow(id: number): void {
@@ -75,12 +87,19 @@ export class UtilitiesComponent implements OnInit {
   }
 
   public generateXML(): void {
+    this.complete = false;
+    let async = of(null).pipe(delay(200))
     let countryCode = this.formGroup.get('ctrlCountryCode')?.value;
-    let prvId = this.formGroup.get('ctrlProvId')?.value
-    try{
-      this.xmlGenerate = functions.generateXml(prvId, countryCode, this.dataSource.data)
-    }catch(error){
-      this.snackBar.openSnackBar(String(error), 'ERROR')
-    }
+    let prvId = this.formGroup.get('ctrlProvId')?.value;
+    async.subscribe({
+      next: () => {
+        try {
+          this.xmlGenerate = functions.generateXml(prvId, countryCode, this.dataSource.data)
+        } catch (error) {
+          this.snackBar.openSnackBar(String(error), 'ERROR')
+        }
+      },
+      complete: () => this.complete = true
+    })
   }
 }

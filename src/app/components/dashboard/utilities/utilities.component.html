@@ -50,7 +50,7 @@
                             <input type="number" matInput autocomplete="off" [(ngModel)]="numRows" min="0" required>
                         </mat-form-field>
                         <span><button mat-raised-button color="primary" [disabled]="numRows <= 0"
-                                (click)="addRow(numRows)">
+                                (click)="addRow(numRows);">
                                 Genera righe random
                             </button></span>
                     </div>
@@ -111,7 +111,8 @@
                         <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
                     </table>
                     <mat-paginator [style.display]="dataSource.data.length === 0 ? 'none' : '' " [pageSize]="5"
-                        [pageSizeOptions]="[5, 10, 25]"></mat-paginator>
+                        [pageSizeOptions]="[5, 10, 25]" showFirstLastButtons></mat-paginator>
+                    <mat-progress-bar mode="indeterminate" *ngIf="!complete"></mat-progress-bar>
                     <div fxLayout="row" fxLayoutGap="20px">
                         <span>
                             <button mat-raised-button color="primary" [disabled]="formGroup.invalid"
