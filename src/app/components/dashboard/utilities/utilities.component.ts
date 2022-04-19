@@ -4,7 +4,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import * as _moment from 'moment';
-import { of, interval } from 'rxjs';
+import { of, Subscription } from 'rxjs';
 import { delay } from "rxjs/operators";
 import { functions } from 'src/app/domain/functions';
 import { TableSP } from 'src/app/domain/interface';
@@ -56,8 +56,9 @@ export class UtilitiesComponent implements OnInit {
 
   public addRow(numRows?: number): void {
     this.complete = false;
-    let async = of(null).pipe(delay(200))
-    async.subscribe({
+    let subscription: Subscription;
+    let async = of(null).pipe(delay(200));
+    subscription = async.subscribe({
       next: () => {
         if (numRows && numRows > 0) {
           let row: TableSP[] = [];
@@ -74,8 +75,7 @@ export class UtilitiesComponent implements OnInit {
           this.dataSource.paginator = this.paginator;
         }
       },
-      error: () => null,
-      complete: () => this.complete = true
+      complete: () => {this.complete = true, subscription.unsubscribe()}
     })
   }
 
@@ -89,9 +89,10 @@ export class UtilitiesComponent implements OnInit {
   public generateXML(): void {
     this.complete = false;
     let async = of(null).pipe(delay(200))
+    let subscription: Subscription;
     let countryCode = this.formGroup.get('ctrlCountryCode')?.value;
     let prvId = this.formGroup.get('ctrlProvId')?.value;
-    async.subscribe({
+    subscription = async.subscribe({
       next: () => {
         try {
           this.xmlGenerate = functions.generateXml(prvId, countryCode, this.dataSource.data)
@@ -99,7 +100,7 @@ export class UtilitiesComponent implements OnInit {
           this.snackBar.openSnackBar(String(error), 'ERROR')
         }
       },
-      complete: () => this.complete = true
+      complete: () => {this.complete = true, subscription.unsubscribe()}
     })
   }
 }

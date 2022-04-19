@@ -47,10 +47,11 @@
                             </button></span>
                         <mat-form-field appearance="fill">
                             <mat-label>Numero di righe</mat-label>
-                            <input type="number" matInput autocomplete="off" [(ngModel)]="numRows" min="0" required>
+                            <input type="number" matInput autocomplete="off" [(ngModel)]="numRows" min="0" max="100000" required>
+                            <mat-error>Inserisci un numero tra 0 e 100000</mat-error>
                         </mat-form-field>
                         <span><button mat-raised-button color="primary" [disabled]="numRows <= 0"
-                                (click)="addRow(numRows);">
+                                (click)="addRow(numRows);" [disabled]="numRows > 100000">
                                 Genera righe random
                             </button></span>
                     </div>

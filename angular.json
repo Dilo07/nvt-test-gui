@@ -21,7 +21,7 @@
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
             "allowedCommonJsDependencies": [
-              "lodash"
+              "src/app/domain/functions"
             ],
             "outputPath": "dist/npt-test-gui",
             "index": "src/index.html",
