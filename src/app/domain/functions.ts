@@ -12,7 +12,6 @@ export class functions {
     public static generateXml(spID: number, cCodeProvider: string, plates: TableSP[]): string {
         let provider = this.generateProvider(spID, cCodeProvider);
         let plateList = this.generatePlateList(plates);
-        let format = require('xml-formatter');
         let xml = `
         <InfoExchange>
             <infoExchangeContent>
@@ -30,11 +29,7 @@ export class functions {
                 </adus>
             </infoExchangeContent>
         </InfoExchange>`
-        return format(xml, {
-            indentation: '  ',
-            collapseContent: true,
-            lineSeparator: '\n'
-        })
+        return xml.replace(/\s/g, '')
     }
 
     private static generateProvider(spID: number, countryCode: string): string {
