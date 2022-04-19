@@ -44,11 +44,11 @@
                     <div fxLayout="row" fxLayoutGap="20px">
                         <mat-form-field appearance="fill">
                             <mat-label>Numero di righe</mat-label>
-                            <input type="number" matInput autocomplete="off" [(ngModel)]="numRows" min="0" max="100000"
+                            <input type="number" matInput autocomplete="off" [(ngModel)]="numRows" min="0" max="20000"
                                 required>
-                            <mat-error>Inserisci un numero tra 0 e 100000</mat-error>
+                            <mat-error>Inserisci un numero tra 0 e 20000</mat-error>
                         </mat-form-field>
-                        <span><button mat-raised-button color="primary" [disabled]="numRows <= 0 || numRows > 100000"
+                        <span><button mat-raised-button color="primary" [disabled]="numRows <= 0 || numRows > 20000"
                                 (click)="addRow(numRows);">
                                 Genera righe random
                             </button></span>

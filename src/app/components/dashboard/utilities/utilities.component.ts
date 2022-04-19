@@ -63,7 +63,11 @@ export class UtilitiesComponent implements OnInit {
         if (numRows && numRows > 0) {
           let row: TableSP[] = [];
           for (let i = 0; i < numRows; i++) {
-            row.push({ id: i + 1, plate: '#' + functions.generateRandomPlate(), nation: 'IT', selectAdd: true });
+            let randomPlate = functions.generateRandomPlate();
+            while(row.some((rowCheck) => rowCheck.plate === ('#' + randomPlate))){ // se ha generato una targa già presente richiama il random
+              randomPlate = functions.generateRandomPlate();
+            }
+            row.push({ id: i + 1, plate: '#' + randomPlate, nation: 'IT', selectAdd: true });
           }
           this.dataToDisplay = row;
           this.dataSource.data = this.dataToDisplay;
@@ -75,7 +79,7 @@ export class UtilitiesComponent implements OnInit {
           this.dataSource.paginator = this.paginator;
         }
       },
-      complete: () => {this.complete = true, subscription.unsubscribe()}
+      complete: () => {this.complete = true, this.xmlGenerate = ''; subscription.unsubscribe()}
     })
   }
 
