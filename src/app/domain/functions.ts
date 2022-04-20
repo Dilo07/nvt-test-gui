@@ -166,6 +166,6 @@ export class functions {
                 plate += Math.floor(Math.random() * 10);
             }
         }
-        return plate;
+        return '#' + plate;
     }
 }

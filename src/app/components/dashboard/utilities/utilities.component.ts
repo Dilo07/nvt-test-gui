@@ -64,10 +64,10 @@ export class UtilitiesComponent implements OnInit {
           let row: TableSP[] = [];
           for (let i = 0; i < numRows; i++) {
             let randomPlate = functions.generateRandomPlate();
-            while(row.some((rowCheck) => rowCheck.plate === ('#' + randomPlate))){ // se ha generato una targa già presente richiama il random
+            while(row.some((rowCheck) => rowCheck.plate ===  randomPlate)){ // se ha generato una targa già presente richiama il random
               randomPlate = functions.generateRandomPlate();
             }
-            row.push({ id: i + 1, plate: '#' + randomPlate, nation: 'IT', selectAdd: true });
+            row.push({ id: i + 1, plate: randomPlate, nation: 'IT', selectAdd: true });
           }
           this.dataToDisplay = row;
           this.dataSource.data = this.dataToDisplay;
